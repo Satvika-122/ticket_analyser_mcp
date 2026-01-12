@@ -1,4 +1,4 @@
-# summary_core.py
+from backend.mcp.agent_base import MCPAgent
 
 # -------------------------
 # Category-level templates
@@ -15,17 +15,17 @@ SUMMARY_TEMPLATES = {
 # -------------------------
 ENTITY_PHRASES = {
     "ORDER_ID": lambda e: f"associated with {e}",
-    "TRANSACTION_ID": lambda e: "related to a transaction",
+    "TRANSACTION_ID": lambda _: "related to a transaction",
     "ACCOUNT_NUMBER": lambda _: "related to a specific account",
     "PAN_NUMBER": lambda _: "linked to identity verification",
     "ACCOUNT_STATUS": lambda _: "resulting in restricted account access",
     "LOC": lambda e: f"reported from {e}",
-    "EMAIL": lambda _: None,          # intentionally ignored
-    "PHONE_NUMBER": lambda _: None    # intentionally ignored
+    "EMAIL": lambda _: None,
+    "PHONE_NUMBER": lambda _: None
 }
 
 
-def summarize_ticket(category, entities):
+def summarize_ticket(category: str, entities: list) -> str:
     """
     Generate a structured summary using category and extracted entities.
     """
@@ -36,9 +36,12 @@ def summarize_ticket(category, entities):
 
     clauses = []
 
-    for ent in entities:
+    for ent in entities or []:
         ent_type = ent.get("type")
         ent_text = ent.get("text")
+
+        if not ent_type or not ent_text:
+            continue
 
         if ent_type in ENTITY_PHRASES:
             phrase = ENTITY_PHRASES[ent_type](ent_text)
@@ -49,3 +52,25 @@ def summarize_ticket(category, entities):
         return base + ", " + ", ".join(clauses) + "."
 
     return base + "."
+
+
+class SummaryAgent(MCPAgent):
+    def run(self, context):
+        if not context.category:
+            context.summary = "Customer reports an issue requiring assistance."
+            context.agent_logs.append(
+                "SummaryAgent → fallback summary used"
+            )
+            return context
+
+        summary = summarize_ticket(
+            context.category,
+            context.entities
+        )
+
+        context.summary = summary
+        context.agent_logs.append(
+            "SummaryAgent → summary generated"
+        )
+
+        return context

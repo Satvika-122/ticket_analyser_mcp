@@ -1,4 +1,4 @@
-# qa_core.py
+from backend.mcp.agent_base import MCPAgent
 
 # -------------------------
 # Category keyword checks
@@ -15,7 +15,7 @@ GENERIC_FALLBACK = "customer reports an issue requiring assistance"
 
 def validate_response(category: str, summary: str):
     """
-    Validate classification and entity-driven summary output.
+    Validate classification and summary output.
     Returns validity flag and confidence score.
     """
     category = category.strip()
@@ -39,7 +39,7 @@ def validate_response(category: str, summary: str):
         confidence += 0.4
         valid = True
 
-    # 3️⃣ Entity concept presence (implicit)
+    # 3️⃣ Implicit entity / relation presence
     if any(k in summary for k in ["associated", "related", "linked"]):
         confidence += 0.3
 
@@ -49,3 +49,30 @@ def validate_response(category: str, summary: str):
         "valid": valid,
         "confidence": confidence
     }
+
+
+class QAAgent(MCPAgent):
+    def run(self, context):
+        # Guard clauses
+        if not context.category or not context.summary:
+            context.agent_logs.append(
+                "QAAgent → skipped (missing category or summary)"
+            )
+            context.qa_validation = {
+                "valid": False,
+                "confidence": 0.0
+            }
+            return context
+
+        result = validate_response(
+            context.category,
+            context.summary
+        )
+
+        context.qa_validation = result
+
+        context.agent_logs.append(
+            f"QAAgent → valid={result['valid']}, confidence={result['confidence']}"
+        )
+
+        return context
