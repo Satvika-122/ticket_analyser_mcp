@@ -91,33 +91,37 @@ Each agent:
 
 ## ▶️ How to Run Locally
 
-### 1. Clone the Repository
+1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/Satvika-122/ticket_analyser_mcp.git
-cd ticket_analyser_mcp
-###2. Create and Activate Virtual Environment
+cd ticket_analyser_mcp/Ticket_Analyser
+2️⃣ Create and Activate Virtual Environment
+bash
+Copy code
 python -m venv venv
 .\venv\Scripts\Activate.ps1
-
-###3. Install Dependencies
+3️⃣ Install Dependencies
+bash
+Copy code
 pip install -r requirements.txt
-
-4. Start FastAPI Server
+4️⃣ Start FastAPI Server
+bash
+Copy code
 uvicorn backend.main:app --reload
-
-
 Open in browser:
 
+arduino
+Copy code
 http://127.0.0.1:8000/docs
-
-5. Start Streamlit Client
+5️⃣ Start Streamlit Client
+bash
+Copy code
 streamlit run app.py
-
 🧪 Sample Input
+css
+Copy code
 My payment was deducted but order ID 12345 was not confirmed.
-
 Sample Output
-
 Category: Payment Issue
 
 Entities: ORDER_ID → 12345
@@ -126,17 +130,15 @@ Summary:
 Customer reports a payment-related issue, associated with order ID 12345.
 
 🔐 Validation Strategy
-
 QA agent runs internally in the backend
 
-Confidence scores are stored but not displayed in UI
+Confidence scores are stored but not displayed in the UI
 
 Prevents unreliable AI outputs
 
 Supports future Human-in-the-Loop workflows
 
 📌 Why This Project Matters
-
 This project demonstrates:
 
 Agentic AI system design
@@ -148,7 +150,6 @@ Safe AI practices with validation and fallbacks
 Scalable architecture suitable for real-world support systems
 
 👩‍💻 Author
-
 Satvika Dwaram
 AI & Data Science Undergraduate
 Agentic AI | GenAI | MCP Systems
@@ -156,11 +157,9 @@ Agentic AI | GenAI | MCP Systems
 GitHub: https://github.com/Satvika-122
 
 📜 License
-
 This project is intended for educational and demonstration purposes.
 
 🚀 Future Enhancements
-
 Retrieval-Augmented Generation (RAG)
 
 Human-in-the-Loop workflows
@@ -169,17 +168,19 @@ Cloud deployment (AWS / GCP / Hugging Face)
 
 Real-time streaming responses
 
+yaml
+Copy code
 
 ---
 
-✅ **Ready to paste**  
-✅ **Live link included**  
-✅ **Recruiter & interview ready**
+✅ This is **valid Markdown**  
+✅ No formatting issues  
+✅ Ready for GitHub  
 
-If you want next, I can:
-- Add **screenshots section**
-- Write **resume bullet points**
-- Prepare a **2-minute demo explanation**
-- Add **architecture diagram**
+If you want the **full README combined into one file**, say **“full md”** 🚀
 
-Just say **“next”** 🚀alyser_mcp/Ticket_Analyser
+
+
+
+
+
