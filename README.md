@@ -90,20 +90,22 @@ Each agent:
 ---
 
 ## ▶️ How to Run Locally
-
 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/Satvika-122/ticket_analyser_mcp.git
 cd ticket_analyser_mcp/Ticket_Analyser
+
 2️⃣ Create and Activate Virtual Environment
 bash
 Copy code
 python -m venv venv
 .\venv\Scripts\Activate.ps1
+
 3️⃣ Install Dependencies
 bash
 Copy code
 pip install -r requirements.txt
+
 4️⃣ Start FastAPI Server
 bash
 Copy code
@@ -113,6 +115,7 @@ Open in browser:
 arduino
 Copy code
 http://127.0.0.1:8000/docs
+
 5️⃣ Start Streamlit Client
 bash
 Copy code
